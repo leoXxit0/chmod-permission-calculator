@@ -1,23 +1,45 @@
 # 🔐 chmod Permission Calculator
 
-Una aplicación de escritorio moderna y multiplataforma para calcular visualmente los permisos de archivos y carpetas en Linux/Unix. Marca casillas, obtén al instante la notación **octal** (`755`), la notación **simbólica** (`rwxr-xr-x`) y el comando `chmod` listo para copiar y pegar en tu terminal.
+Una calculadora visual de permisos de Linux (`chmod`) con interfaz gráfica de escritorio, construida en Python con [`customtkinter`](https://github.com/TomSchimansky/CustomTkinter).
 
-Ideal para quienes están aprendiendo administración de sistemas Linux o simplemente quieren evitar calcular permisos "a mano".
+Permite marcar los permisos de **Lectura**, **Escritura** y **Ejecución** para el **Propietario**, el **Grupo** y **Otros** mediante checkboxes, y genera en tiempo real la notación octal, la notación simbólica y el comando `chmod` listo para copiar y pegar en tu terminal.
 
-![Screenshot](screenshot.png)
+También soporta los **permisos especiales** de Linux: **SUID**, **SGID** y **Sticky Bit**.
+
+![Modo](https://img.shields.io/badge/interfaz-customtkinter-3B8ED0)
+![Licencia](https://img.shields.io/badge/licencia-MIT-2FA572)
 
 ---
 
 ## ✨ Características
 
-- 🖥️ **Interfaz moderna** construida con `customtkinter`, con esquinas redondeadas y diseño limpio.
-- 🌗 **Modo oscuro / claro**: inicia en modo oscuro por defecto, con un interruptor para alternar en tiempo real.
-- 🧩 **Tres secciones claras**: Propietario (Owner), Grupo (Group) y Otros (Others), cada una con checkboxes para Lectura, Escritura y Ejecución.
-- ⚡ **Cálculo en tiempo real**: el valor octal y simbólico se actualizan automáticamente al marcar o desmarcar casillas.
-- 📋 **Comando `chmod` generado al instante**, con campo editable para el nombre del archivo/carpeta.
-- 📎 **Copiar al portapapeles** con un solo clic.
-- ♻️ **Botón de reinicio** para limpiar todas las selecciones rápidamente.
-- 📐 **Ventana redimensionable**, con diseño responsivo basado en `grid`.
+- Cálculo en tiempo real de los permisos de Propietario, Grupo y Otros.
+- Generación automática de la notación octal (`755`, `644`, `4755`, etc.).
+- Generación automática de la notación simbólica (`rwxr-xr-x`, `rwSr-Sr-T`, etc.).
+- Soporte completo para permisos especiales: **SUID**, **SGID** y **Sticky Bit**.
+- Comando `chmod` completo, listo para copiar al portapapeles con un clic.
+- Campo editable para el nombre del archivo o carpeta objetivo.
+- Modo oscuro / claro intercambiable.
+- Botón de reinicio con confirmación para limpiar todos los permisos.
+
+---
+
+## 📋 Requisitos previos
+
+- Python 3.8 o superior.
+- La librería [`customtkinter`](https://pypi.org/project/customtkinter/).
+
+Instala la dependencia con:
+
+```bash
+pip install customtkinter
+```
+
+> `tkinter` (el módulo base sobre el que se apoya `customtkinter`) viene incluido en la mayoría de instalaciones estándar de Python. En algunas distribuciones de Linux es posible que debas instalarlo aparte, por ejemplo:
+>
+> ```bash
+> sudo apt install python3-tk
+> ```
 
 ---
 
@@ -46,43 +68,73 @@ python3 main.py
 
 ## 🚀 Cómo usarlo
 
-1. Abre la aplicación; iniciará en **modo oscuro**.
-2. En cada columna (**Propietario**, **Grupo**, **Otros**), marca las casillas de **Lectura**, **Escritura** y/o **Ejecución** según los permisos que necesites.
-3. Observa cómo se actualizan automáticamente:
-   - El valor **octal** (ej. `755`).
-   - El valor **simbólico** (ej. `-rwxr-xr-x`).
-4. Escribe el nombre del archivo o carpeta al que aplicarás el permiso (por defecto `archivo`).
-5. Copia el comando generado (ej. `chmod 755 archivo`) con el botón **"Copiar comando al portapapeles"**.
-6. Usa **"Limpiar / Resetear"** para reiniciar todas las casillas.
-7. Alterna entre **modo oscuro y claro** con el interruptor en la esquina superior derecha.
+Se abrirá una ventana con tres columnas (**Propietario**, **Grupo**, **Otros**) y una sección de **Permisos Especiales**:
+
+1. Marca los checkboxes de Lectura, Escritura y Ejecución según los permisos que quieras asignar a cada categoría.
+2. Si lo necesitas, activa SUID, SGID y/o Sticky Bit en la sección de permisos especiales.
+3. Escribe el nombre del archivo o carpeta al que se aplicará el permiso.
+4. Observa cómo se actualizan automáticamente:
+   - La **notación octal** (ej. `0755` o `4755`).
+   - La **notación simbólica** (ej. `rwxr-xr-x` o `rwsr-xr-x`).
+   - El **comando `chmod`** completo (ej. `chmod 4755 archivo`).
+5. Haz clic en **"📋 Copiar comando al portapapeles"** para copiarlo directamente a tu terminal.
+6. Usa **"♻️ Limpiar / Resetear"** para reiniciar todos los permisos a cero.
+---
+---
+
+## ⭐ Permisos especiales (SUID, SGID, Sticky Bit)
+
+Además de los permisos básicos de lectura, escritura y ejecución, Linux define tres **permisos especiales** que ocupan un cuarto dígito adicional al principio de la notación octal (por ejemplo, el `4` en `4755`) y que modifican la notación simbólica con las letras `s`, `S`, `t` o `T`.
+
+| Permiso | Valor octal | Se aplica a | Notación simbólica |
+|---|---|---|---|
+| **SUID** (Set User ID) | `4` | Propietario | `s` (si hay ejecución) / `S` (si no la hay) en la posición de ejecución del propietario |
+| **SGID** (Set Group ID) | `2` | Grupo | `s` (si hay ejecución) / `S` (si no la hay) en la posición de ejecución del grupo |
+| **Sticky Bit** | `1` | Otros | `t` (si hay ejecución) / `T` (si no la hay) en la posición de ejecución de otros |
+
+### ¿Qué significan?
+
+- **SUID**: cuando se ejecuta un archivo con este bit activo, el proceso se ejecuta con los privilegios del **propietario** del archivo en lugar de los del usuario que lo lanza. Se usa, por ejemplo, en binarios que necesitan privilegios elevados de forma controlada (como `passwd`).
+- **SGID**: en un archivo ejecutable, funciona de forma similar a SUID pero con el **grupo** del archivo. Aplicado a un **directorio**, hace que todos los archivos y subdirectorios creados dentro hereden automáticamente el grupo del directorio padre, lo cual es muy útil para carpetas compartidas por equipos de trabajo.
+- **Sticky Bit**: aplicado a un directorio, evita que los usuarios puedan eliminar o renombrar archivos que no les pertenecen, aunque tengan permiso de escritura sobre el directorio. Es el mecanismo detrás del comportamiento de carpetas compartidas como `/tmp`.
+
+### Ejemplo de comando generado
+
+Si activas Lectura+Escritura+Ejecución para el Propietario, Lectura+Ejecución para el Grupo, Lectura+Ejecución para Otros, y activas SUID:
+
+```
+Octal:     4755
+Simbólico: -rwsr-xr-x
+Comando:   chmod 4755 archivo
+```
 
 ---
 
-## 🗂️ Estructura del proyecto
+## 🛠️ Tecnologías utilizadas
 
-```
-chmod-permission-calculator/
-├── main.py             # Código fuente de la aplicación
-├── requirements.txt    # Dependencias del proyecto
-├── README.md           # Este archivo
-├── LICENSE              # Licencia MIT
-└── .gitignore           # Archivos ignorados por Git
-```
+- [Python 3](https://www.python.org/)
+- [customtkinter](https://github.com/TomSchimansky/CustomTkinter)
 
 ---
 
-## 🤝 Contribuciones
+## 🤝 Contribuir
 
-Las contribuciones son bienvenidas. Si quieres colaborar:
+Las contribuciones son bienvenidas. Si quieres proponer una mejora o corregir un error:
 
 1. Haz un fork del repositorio.
-2. Crea una rama para tu funcionalidad (`git checkout -b feature/nueva-funcionalidad`).
+2. Crea una rama para tu cambio (`git checkout -b mejora/nueva-funcionalidad`).
 3. Haz commit de tus cambios (`git commit -m 'Agrega nueva funcionalidad'`).
-4. Sube tu rama (`git push origin feature/nueva-funcionalidad`).
+4. Haz push a tu rama (`git push origin mejora/nueva-funcionalidad`).
 5. Abre un Pull Request.
 
 ---
 
 ## 📄 Licencia
 
-Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+
+---
+
+## 🔗 Repositorio
+
+[github.com/leoXxit0/chmod-permission-calculator](https://github.com/leoXxit0/chmod-permission-calculator)
