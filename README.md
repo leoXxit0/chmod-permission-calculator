@@ -30,7 +30,7 @@ git clone https://github.com/leoXxit0/chmod-permission-calculator.git
 cd chmod-permission-calculator
 ```
 
-### 2. (Opcional pero recomendado) Crea un entorno virtual
+### 2. Crea un entorno virtual
 
 ```bash
 python3 -m venv .venv
