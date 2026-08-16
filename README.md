@@ -39,13 +39,7 @@ python -m pip install --upgrade pip
 python -m pip install customtkinter
 ```
 
-### 3. Instala las dependencias
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Ejecuta la aplicación
+### 3. Ejecuta la aplicación
 
 ```bash
 python3 main.py
