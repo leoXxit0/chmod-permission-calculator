@@ -80,7 +80,6 @@ Se abrirá una ventana con tres columnas (**Propietario**, **Grupo**, **Otros**)
 5. Haz clic en **"📋 Copiar comando al portapapeles"** para copiarlo directamente a tu terminal.
 6. Usa **"♻️ Limpiar / Resetear"** para reiniciar todos los permisos a cero.
 ---
----
 
 ## ⭐ Permisos especiales (SUID, SGID, Sticky Bit)
 
