@@ -26,7 +26,7 @@ Ideal para quienes están aprendiendo administración de sistemas Linux o simple
 ### 1. Clona el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/chmod-permission-calculator.git
+git clone https://github.com/leoXxit0/chmod-permission-calculator.git
 cd chmod-permission-calculator
 ```
 
