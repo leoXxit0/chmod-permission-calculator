@@ -33,8 +33,10 @@ cd chmod-permission-calculator
 ### 2. (Opcional pero recomendado) Crea un entorno virtual
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate      # En Windows: venv\Scripts\activate
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install customtkinter
 ```
 
 ### 3. Instala las dependencias
