@@ -4,7 +4,7 @@ Una aplicación de escritorio moderna y multiplataforma para calcular visualment
 
 Ideal para quienes están aprendiendo administración de sistemas Linux o simplemente quieren evitar calcular permisos "a mano".
 
-![Screenshot](docs/screenshot.png)
+![Screenshot](screenshot.png)
 
 ---
 
